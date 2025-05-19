@@ -1,0 +1,68 @@
+﻿Country,RabiesStatus,InCountry,IncDest,IncOrigin,Long,Lat,animal_type
+Albania,Controlled,NA,1,,20.168331,41.153332,
+Algeria,Endemic,NA,0,,1.659626,28.033886,
+Austria,Controlled,NA,1,,14.550072,47.516231,
+Azerbaijan,Endemic,NA,0,,47.576927,40.143105,
+Belarus,Endemic,NA,0,,27.953389,53.709807,
+Belgium,Controlled,NA,1,,4.469936,50.503887,
+Bhutan,Controlled,2,2,0,90.433601,27.514162,domestic
+Bolivia,Endemic,NA,0,,63.588653,-16.290154,
+Bosnia and Herz.,Controlled,NA,0,,17.679076,43.915886,
+Brazil,Endemic,NA,2,,-51.92528,-14.235004,
+Canada,Controlled,2,5,,-106.346771,56.130366,domestic
+Chad,Endemic,1,0,,18.732207,15.454166,domestic
+China,Endemic,4,2,,104.195397,35.86166,domestic
+Croatia,Controlled,NA,1,,15.2,45.1,
+Egypt,Endemic,NA,0,,30.802498,26.820553,
+Estonia,Controlled,NA,0,,25.013607,58.595272,
+Ethiopia,Endemic,1,0,,40.489673,9.145,domestic
+Finland,Controlled,NA,2,,25.748151,61.92411,
+France,Controlled,NA,17,,2.213749,46.227638,
+Gambia,Endemic,NA,0,,-15.310139,13.443182,
+Germany,Controlled,1,8,,10.451526,51.165691,wildlife
+Greece,Controlled,NA,1,,21.824312,39.074208,
+Greenland,Controlled,NA,0,,-42.6043,71.706936,
+India,Endemic,1,0,,78.96288,20.593684,wildlife
+Indonesia,Endemic,4,0,,113.921327,-0.789275,domestic
+Iran,Endemic,NA,1,,53.688046,32.427908,
+Iraq,Endemic,NA,0,,43.679291,33.223191,
+Israel,Endemic,2,0,,34.851612,31.046051,domestic
+Italy,Controlled,1,1,,12.56738,42.87194,wildlife
+Kosovo,Controlled,NA,1,,20.902977,42.602636,
+Lesotho,Endemic,NA,0,,28.233608,-29.609988,
+Malaysia,Endemic,NA,3,,101.975766,4.210484,
+Mexico,Endemic,NA,0,,-102.552784,23.634501,
+Mongolia,Endemic,NA,0,,103.846656,46.862496,
+Morocco,Endemic,NA,0,,-7.09262,31.791702,
+Nepal,Endemic,NA,0,,84.124008,28.394857,
+Netherlands,Controlled,NA,1,,-69.060087,12.226079,
+Macedonia,Controlled,NA,0,,21.745275,41.608635,
+Norway,Controlled,1,1,,8.468946,60.472024,wildlife
+Peru,Endemic,1,0,,-75.015152,-9.189967,domestic
+Philippines,Endemic,1,0,,121.774017,12.879721,domestic
+Poland,Controlled,NA,5,,19.145136,51.919438,
+Romania,Controlled,NA,0,,24.96676,45.943161,
+Russia,Endemic,NA,2,,105.318756,61.52401,
+Serbia,Controlled,NA,0,,21.005859,44.016521,
+Slovakia,Controlled,NA,2,,19.699024,48.669026,
+Slovenia,Controlled,NA,0,,14.995463,46.151241,
+South Africa,Endemic,3,4,,22.937506,-30.559482,domestic
+Korea,Controlled,1,0,,127.766922,35.907757,domestic
+Spain,Controlled,NA,2,,-3.74922,40.463667,
+Sri Lanka,Endemic,NA,0,,80.771797,7.873054,
+Switzerland,Controlled,NA,1,,8.227512,46.818188,
+Tanzania,Endemic,1,0,,34.888822,-6.369028,domestic
+Thailand,Endemic,NA,0,,100.992541,15.870032,
+Turkey,Endemic,NA,0,,35.243322,38.963745,
+Ukraine,Endemic,NA,0,,31.16558,48.379433,
+United Kingdom,Controlled,NA,2,,-3.435973,55.378051,
+United States,Controlled,4,9,,-95.712891,37.09024,domestic
+Zimbabwe,Endemic,NA,0,,29.154857,-19.015438,livestock
+Afghanistan,Endemic,NA,1,,67.709953,33.93911,
+Portugal,Controlled,NA,1,,39.399872,-8.224454,
+Senegal,Endemic,NA,1,,14.497401,-14.452362,
+Bulgaria,Controlled,NA,0,,42.733883,25.48583,
+Canada,Controlled,1,,,-106.34677,56.130366,wildlife
+Israel,Endemic,1,,,34.851612,31.046051,livestock
+South Africa,Endemic,1,,,22.937506,-30.559482,wildlife
+United States,Controlled,8,,,-95.712891,37.09024,wildlife
