@@ -23,11 +23,7 @@ library(here)
 
 
 meta_test <- read_csv("data/meta_testless.csv") 
-View(meta_test)
 glimpse(meta_test)
-
-meta_test <- meta_test[order(meta_test$Subgroup)]
-
 
 meta_test$Category <- ifelse(is.na(meta_test$TE), 
                              meta_test$Category,

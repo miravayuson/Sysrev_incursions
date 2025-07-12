@@ -72,14 +72,14 @@ pointsmap <- st_as_sf(incursionrec, coords = c("Long", "Lat"), crs = 4326)
 print(pointsmap)
 
 
-facet_names <- c('domestic'= "Domestic",
-                 'wildlife'= "Wildlife")
+facet_names <- c('domestic'= "Domestic animal incursions",
+                 'wildlife'= "Wildlife incursions")
 
 map_A <- ggplot(data=world_data[!is.na(world_data$animal_type),]) + 
   geom_sf(data=world, fill="white") +
   facet_wrap(~animal_type, ncol=1, drop=TRUE, labeller=as_labeller(facet_names)) +
   geom_sf(aes(fill=RabiesStatus)) +
-  scale_fill_manual(name="Rabies status", labels=c("Rabies-controlled", "Rabies-endemic"), values=alpha(c("#80A1c2","#F9665E"))) +
+  scale_fill_manual(name="Countries reporting\nincursions", labels=c("Rabies-controlled", "Rabies-endemic"), values=alpha(c("#80A1c2","#F9665E"))) +
   geom_curve(data=incursionarrows, aes(x=to_x, y=to_y, xend = from_x, yend = from_y), curvature = 0.2, color = "#690000", arrow = arrow(length = unit(5, "pt"), type = "closed"),
   ) +
   geom_point(data=incursionrec, aes(x=Long, y=Lat, size=InCountry), color="black", fill="gold", shape=21, alpha = 0.7) +
@@ -88,10 +88,13 @@ map_A <- ggplot(data=world_data[!is.na(world_data$animal_type),]) +
   theme(axis.text = element_blank(),
         axis.title = element_blank(),
         axis.ticks = element_blank(),
-        panel.grid = element_blank(), 
+        panel.grid = element_blank(),
+        strip.text.x = element_text(
+          size = 12, color = "white", face = "bold"
+        ),
         legend.position="left", 
-        plot.subtitle = element_text(size=9, color="black")) + 
-  labs(subtitle=" ")
+        plot.subtitle = element_text(size=9, color="black"), strip.background = element_rect(
+          color="white", fill="white"))
 
 map_B <- ggplot(data=world_data[!is.na(world_data$animal_type),]) + 
   geom_sf(data = world, fill="white") +
@@ -101,18 +104,25 @@ map_B <- ggplot(data=world_data[!is.na(world_data$animal_type),]) +
   ) +
   geom_point(data=incursionrec, aes(x=Long, y=Lat, size=InCountry), color="black", fill="gold", shape=21, alpha = 0.7) +
   coord_sf(xlim = c(-20, 60), ylim = c(20, 73), expand = FALSE) +
-  scale_fill_manual(name="Rabies status", values=alpha(c("#80A1c2","#F9665E"))) +
+  scale_fill_manual(name="Countries reporting\nincursions", values=alpha(c("#80A1c2","#F9665E"))) +
   theme(axis.text = element_blank(),
         axis.title = element_blank(),
         axis.ticks = element_blank(),
         panel.grid = element_blank(),
         strip.background = element_blank(),
-        strip.text.x = element_blank(),
+        strip.text.x = element_text(
+          size = 12, color = "white", face = "bold"
+        ),
         legend.position="none",
         plot.subtitle = element_text(hjust = 0.5, size=9, color="black"), 
         panel.border = element_rect(colour = "#00ad50", fill=NA, linewidth=1)) + 
-  labs(subtitle="Europe")
+  geom_label(aes(x = -4, y = 67,
+                label = "Europe"),
+            stat = "unique", color = "#00ad50", fill="white", fontface = "bold") 
 
-
-plot_grid(map_A, map_B, rel_widths = c(2, 0.76), nrow=1) 
+combined_plot <- plot_grid(map_A, map_B, align = "h", axis = "tb", rel_widths = c(2, 0.70), nrow=1) 
+final_plot <- ggdraw(combined_plot) + draw_label("Domestic animal incursions", x = 0.271, y= 0.86, vjust = -1.2, angle = 0, size = 16, fontface = "bold",
+                                                 color = "black") +
+  draw_label("Wildlife incursions", x = 0.231, y = 0.447, vjust = -1.2, angle = 0, size = 16, fontface = "bold", color = "black")
+final_plot
 ggsave("figures/Figure2.jpg", width=1093/90, height=704/90, dpi=900)
