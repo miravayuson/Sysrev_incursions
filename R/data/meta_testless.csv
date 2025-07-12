@@ -1,11 +1,11 @@
 ﻿Category,Incursions,Outbreaks,TE,seTE,Subgroup
 Mode of travel,,,,,
 By air,40,1,0.025,0.024685522,Mode_of_travel
-By land,82,18,0.219512195,0.045709394,Mode_of_travel
-By water,30,4,0.133333333,0.062063289,Mode_of_travel
+By land,82,20,0.243902439,0.047423114,Mode_of_travel
+By water,30,6,0.2,0.073029674,Mode_of_travel
 Rabies status,,,,,
-Canine rabies-endemic,33,12,0.363636364,0.083739307,Rabies_status
-Canine rabies-controlled,84,8,0.095238095,0.032028224,Rabies_status
+Canine rabies-endemic,33,14,0.424242424,0.086033959,Rabies_status
+Canine rabies-controlled,84,10,0.119047619,0.035334336,Rabies_status
 Vaccination status,,,,,
 Vaccinated,6,0,0,0,Vaccination_status
 Recently vaccinated,5,0,0,0,Vaccination_status
@@ -15,13 +15,13 @@ Age,,,,,
 Juvenile,11,1,0.090909091,0.086678417,Age_class
 Adult,9,0,0,0,Age_class
 Species,,,,,
-"Domestic (dog, cat)",82,14,0.170731707,0.041552551,Species_type
-Wildlife,36,7,0.194444444,0.065962069,Species_type
+"Domestic (dog, cat)",82,16,0.195121951,0.043763413,Species_type
+Wildlife,36,9,0.25,0.072168784,Species_type
 Type of incursion,,,,,
-Natural,47,12,0.255319149,0.063603038,Type_of_incursion
-Human-mediated,61,5,0.081967213,0.035122406,Type_of_incursion
+Natural,47,14,0.29787234,0.066707429,Type_of_incursion
+Human-mediated,61,7,0.114754098,0.040808548,Type_of_incursion
 Borders crossed,,,,,
-In-country,42,13,0.30952381,0.071334027,Borders_crossed
+In-country,42,17,0.404761905,0.075739168,Borders_crossed
 Shared border,43,8,0.186046512,0.059343934,Borders_crossed
 International (no shared border),12,0,0,0,Borders_crossed
 Intercontinental (no shared border),34,0,0,0,Borders_crossed
