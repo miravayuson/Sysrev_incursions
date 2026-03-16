@@ -1,5 +1,5 @@
 ﻿from_x,from_y,to_x,to_y,destination,origin,number_of_incursions,animal_type
-2.213749,46.227638,-7.09262,31.791702,France,Morocco,3,domestic
+2.213749,46.227638,-7.09262,31.791702,France,Morocco,4,domestic
 22.937506,-30.559482,29.154857,-19.015438,South Africa,Zimbabwe,1,domestic
 22.937506,-30.559482,28.233608,-29.609988,South Africa,Lesotho,2,domestic
 53.688046,32.427908,84.124008,28.394857,Iran,Nepal,1,domestic
@@ -57,8 +57,12 @@
 -95.712891,37.09024,-106.346771,56.130366,USA,Canada,1,domestic
 -106.346771,56.130366,30.802498,26.820553,Canada,Egypt,1,domestic
 -95.712891,37.09024,47.576927,40.143105,USA,Azerbaijan,1,domestic
--106.346771,56.130366,10.451526,51.165691,Canada,Germany,1,domestic
-10.451526,51.165691,53.688046,32.427908,Germany,Iran,1,domestic
+-106.346771,56.130366,10.451526,51.165691,Canada,Germany,2,domestic
+10.451526,51.165691,53.688046,32.427908,Germany,Iran,2,domestic
 -51.92528,-14.235004,-63.588653,-16.290154,Brazil,Bolivia,1,domestic
 19.699024,48.669026,19.145136,51.919438,Slovakia,Poland,1,domestic
 -95.712891,37.09024,-102.552784,23.634501,USA,Mexico,1,domestic
+19.503304,47.162494,31.16558,48.379433,Hungary,Ukraine,1,wildlife
+19.699024,48.669026,31.16558,48.379433,Slovakia,Ukraine,1,wildlife
+125.727539,-8.874217,113.921327,-0.789275,Timor-Leste,Indonesia,1,domestic
+34.851612,31.046051,36.238414,30.585164,Israel,Jordan,1,wildlife
