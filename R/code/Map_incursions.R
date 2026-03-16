@@ -19,9 +19,7 @@ library(rnaturalearthdata)
 library(sf) 
 library(tmap) 
 library(patchwork) 
-library(cowplot) 
-library(gridExtra)
-
+library(cowplot)
 
 read.csv("data/all_incursions.csv") 
 incursionmap <-read.csv("data/all_incursions.csv") 
@@ -42,10 +40,10 @@ incursionarrowsEU <- incursionarrowsEU%>%
 incursionrecord <- incursionrecord%>%
   filter(animal_type != "livestock") 
 incursionmap <- incursionmap %>%
-  filter(Species != "Horse" & Species != "Cow") 
+  filter(Species != "Horse" & Species != "Cow" & Species != "Mule") 
 
 incursionrecords <- incursionrecords%>% 
-  dplyr::mutate(animal_type = dplyr::case_when(Country == "Russia" | Country == "Italy" | Country == "Norway" | Country == "Greece" | Country == "Mongolia" | Country == "Macedonia" | Country == "Ukraine" | Country == "Belarus" | Country == "Norway" | Country == "Greenland" ~ "wildlife", Country == "Albania" | Country == "Belgium" | Country == "Bhutan" | Country == "Brazil" | Country == "Chad" | Country == "Ethiopia" | Country == "France" | Country == "Indonesia" | Country == "Iran" | Country == "Malaysia" | Country == "Netherlands" | Country == "Peru" | Country == "Philippines" | Country == "Korea" | Country == "Spain" | Country == "Switzerland" | Country == "Tanzania" | Country == "Afghanistan" | Country == "Algeria" | Country == "Morocco" | Country == "Azerbaijan" | Country == "Bolivia" | Country == "Bosnia and Herz." | Country == "Egypt" | Country == "Gambia" | Country == "Senegal" | Country == "Lesotho" | Country == "Portugal" | Country == "Nepal" | Country == "Turkey" | Country == "Serbia" | Country == "Sri Lanka" | Country == "Thailand" | Country == "Israel" | Country == "Finland" | Country == "Croatia" | Country == "Zimbabwe" | Country == "Mexico" | Country == "Bulgaria" | Country == "Iraq" ~ "domestic",  Country == "South Africa" | Country == "United States" | Country == "Slovakia" | Country == "China" | Country == "India" | Country == "Austria" | Country == "Germany" | Country == "Kosovo" | Country == "Poland" | Country == "United Kingdom" | Country == "Slovenia" | Country == "Canada" ~ "wildlife|domestic"))
+  dplyr::mutate(animal_type = dplyr::case_when(Country == "Russia" | Country == "Italy" | Country == "Norway" | Country == "Greece" | Country == "Mongolia" | Country == "Macedonia" | Country == "Ukraine" | Country == "Belarus" | Country == "Norway" | Country == "Taiwan" | Country == "Jordan" | Country == "Hungary" | Country == "Greenland" ~ "wildlife", Country == "Albania" | Country == "Belgium" | Country == "Bhutan" | Country == "Brazil" | Country == "Chad" | Country == "France" | Country == "Indonesia" | Country == "Iran" | Country == "Malaysia" | Country == "Netherlands" | Country == "Peru" | Country == "Philippines" | Country == "Timor-Leste" | Country == "Nigeria" | Country == "Korea" | Country == "Spain" | Country == "Switzerland" | Country == "Tanzania" | Country == "Afghanistan" | Country == "Algeria" | Country == "Morocco" | Country == "Azerbaijan" | Country == "Bolivia" | Country == "Bosnia and Herz." | Country == "Egypt" | Country == "Gambia" | Country == "Senegal" | Country == "Lesotho" | Country == "Portugal" | Country == "Nepal" | Country == "Turkey" | Country == "Serbia" | Country == "Sri Lanka" | Country == "Thailand" | Country == "Finland" | Country == "Croatia" | Country == "Zimbabwe" | Country == "Mexico" | Country == "Bulgaria" | Country == "Iraq" ~ "domestic",  Country == "South Africa" | Country == "United States" | Country == "Slovakia" | Country == "China" | Country == "India" | Country == "Austria" | Country == "Germany" | Country == "Kosovo" | Country == "Poland" | Country == "United Kingdom" | Country == "Slovenia" | Country == "Canada" | Country == "Israel" | Country == "Ethiopia" ~ "wildlife|domestic"))
 
 incursionrecords <- incursionrecords%>%
   separate_rows(animal_type, sep = "\\|") 
@@ -79,50 +77,125 @@ map_A <- ggplot(data=world_data[!is.na(world_data$animal_type),]) +
   geom_sf(data=world, fill="white") +
   facet_wrap(~animal_type, ncol=1, drop=TRUE, labeller=as_labeller(facet_names)) +
   geom_sf(aes(fill=RabiesStatus)) +
-  scale_fill_manual(name="Countries reporting\nincursions", labels=c("Rabies-controlled", "Rabies-endemic"), values=alpha(c("#80A1c2","#F9665E"))) +
-  geom_curve(data=incursionarrows, aes(x=to_x, y=to_y, xend = from_x, yend = from_y), curvature = 0.2, color = "#690000", arrow = arrow(length = unit(5, "pt"), type = "closed"),
+  scale_fill_manual(name="Countries reporting\nincursions",
+                    labels=c("Rabies-controlled", "Rabies-endemic"),
+                    values=alpha(c("#80A1c2","#F9665E"))) +
+  geom_curve(data=incursionarrows,
+             aes(x=to_x, y=to_y, xend = from_x, yend = from_y),
+             curvature = 0.2,
+             color = "#690000",
+             arrow = arrow(length = unit(5, "pt"), type = "closed")) +
+  geom_point(data=incursionrec,
+             aes(x=Long, y=Lat, size=InCountry),
+             color="black",
+             fill="gold",
+             shape=21,
+             alpha = 0.7) +
+  geom_rect(aes(xmin = -20, xmax = 60, ymin = 20, ymax = 73),
+            color = "#00ad50", fill = NA, alpha=1/5) + 
+  geom_rect(aes(xmin = 60, xmax = 160, ymin = -20, ymax = 70),
+            color = "#6a329f", fill = NA, alpha=1/5) + 
+  scale_size(
+    name = "In-country incursions",
+    labels = scales::label_number(accuracy = 1)
   ) +
-  geom_point(data=incursionrec, aes(x=Long, y=Lat, size=InCountry), color="black", fill="gold", shape=21, alpha = 0.7) +
-  geom_rect(aes(xmin = -20, xmax = 60, ymin = 20, ymax = 73), color = "#00ad50", fill = NA, alpha=1/5) + 
-  scale_size(name="In-country incursions") +
+  guides(
+    fill = guide_legend(order = 1),
+    size = guide_legend(order = 2)
+  ) +
   theme(axis.text = element_blank(),
         axis.title = element_blank(),
         axis.ticks = element_blank(),
         panel.grid = element_blank(),
-        strip.text.x = element_text(
-          size = 12, color = "white", face = "bold"
-        ),
-        legend.position="left", 
-        plot.subtitle = element_text(size=9, color="black"), strip.background = element_rect(
-          color="white", fill="white"))
+        strip.text.x = element_text(size = 12, color = "white", face = "bold"),
+        legend.position="bottom",
+        legend.box = "vertical",   # << KEY CHANGE
+        plot.subtitle = element_text(size=9, color="black"),
+        strip.background = element_rect(color="white", fill="white"))
 
 map_B <- ggplot(data=world_data[!is.na(world_data$animal_type),]) + 
   geom_sf(data = world, fill="white") +
   facet_wrap(~animal_type, ncol=1, drop=TRUE, labeller=as_labeller(facet_names)) +
   geom_sf(aes(fill=RabiesStatus)) +
-  geom_curve(data=incursionarrowsEU, aes(x=to_x, y=to_y, xend = from_x, yend = from_y), curvature = 0.2, color = "#690000", arrow = arrow(length = unit(5, "pt"), type = "closed"),
-  ) +
-  geom_point(data=incursionrec, aes(x=Long, y=Lat, size=InCountry), color="black", fill="gold", shape=21, alpha = 0.7) +
+  geom_curve(data=incursionarrowsEU,
+             aes(x=to_x, y=to_y, xend = from_x, yend = from_y),
+             curvature = 0.2,
+             color = "#690000",
+             arrow = arrow(length = unit(5, "pt"), type = "closed")) +
+  geom_point(data=incursionrec,
+             aes(x=Long, y=Lat, size=InCountry),
+             color="black", fill="gold", shape=21, alpha = 0.7) +
   coord_sf(xlim = c(-20, 60), ylim = c(20, 73), expand = FALSE) +
-  scale_fill_manual(name="Countries reporting\nincursions", values=alpha(c("#80A1c2","#F9665E"))) +
+  scale_fill_manual(name="Countries reporting\nincursions",
+                    values=alpha(c("#80A1c2","#F9665E"))) +
   theme(axis.text = element_blank(),
         axis.title = element_blank(),
         axis.ticks = element_blank(),
         panel.grid = element_blank(),
         strip.background = element_blank(),
-        strip.text.x = element_text(
-          size = 12, color = "white", face = "bold"
-        ),
+        strip.text.x = element_text(size = 12, color = "white", face = "bold"),
         legend.position="none",
-        plot.subtitle = element_text(hjust = 0.5, size=9, color="black"), 
-        panel.border = element_rect(colour = "#00ad50", fill=NA, linewidth=1)) + 
-  geom_label(aes(x = -4, y = 67,
-                label = "Europe"),
-            stat = "unique", color = "#00ad50", fill="white", fontface = "bold") 
+        plot.subtitle = element_text(hjust = 0.5, size=9, color="black"),
+        panel.border = element_rect(colour = "#00ad50", fill=NA, linewidth=1)) +
+  geom_label(aes(x = -4, y = 67, label = "Europe"),
+             stat = "unique",
+             color = "#00ad50",
+             fill="white",
+             fontface = "bold")
 
-combined_plot <- plot_grid(map_A, map_B, align = "h", axis = "tb", rel_widths = c(2, 0.70), nrow=1) 
-final_plot <- ggdraw(combined_plot) + draw_label("Domestic animal incursions", x = 0.271, y= 0.86, vjust = -1.2, angle = 0, size = 16, fontface = "bold",
-                                                 color = "black") +
-  draw_label("Wildlife incursions", x = 0.231, y = 0.447, vjust = -1.2, angle = 0, size = 16, fontface = "bold", color = "black")
+map_C <- ggplot(data=world_data[!is.na(world_data$animal_type),]) + 
+  geom_sf(data = world, fill="white") +
+  facet_wrap(~animal_type, ncol=1, drop=TRUE, labeller=as_labeller(facet_names)) +
+  geom_sf(aes(fill=RabiesStatus)) +
+  geom_curve(data=incursionarrows,
+             aes(x=to_x, y=to_y, xend = from_x, yend = from_y),
+             curvature = 0.2,
+             color = "#690000",
+             arrow = arrow(length = unit(5, "pt"), type = "closed")) +
+  geom_point(data=incursionrec,
+             aes(x=Long, y=Lat, size=InCountry),
+             color="black", fill="gold", shape=21, alpha = 0.7) +
+  coord_sf(xlim = c(60, 160), ylim = c(-20, 70), expand = FALSE) +
+  scale_fill_manual(name="Countries reporting\nincursions",
+                    values=alpha(c("#80A1c2","#F9665E"))) +
+  theme(axis.text = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid = element_blank(),
+        strip.background = element_blank(),
+        strip.text.x = element_text(size = 12, color = "white", face = "bold"),
+        legend.position="none",
+        plot.subtitle = element_text(hjust = 0.5, size=9, color="black"),
+        panel.border = element_rect(colour = "#6a329f", fill=NA, linewidth=1)) +
+  geom_label(aes(x = 77, y = 60, label = "Asia"),
+             stat = "unique",
+             color = "#6a329f",
+             fill="white",
+             fontface = "bold")
+
+combined_plot <- plot_grid(map_A, map_B, map_C,
+                           align = "h",
+                           axis = "tb",
+                           rel_widths = c(1.9, 0.825, 0.80),
+                           nrow=1)
+
+final_plot <- ggdraw(combined_plot) +
+  draw_label("Domestic animal incursions",
+             x = 0.271, y = 0.891,
+             vjust = -1.2,
+             size = 16,
+             fontface = "bold",
+             color = "black") +
+  draw_label("Wildlife incursions",
+             x = 0.231, y = 0.515,
+             vjust = -1.2,
+             size = 16,
+             fontface = "bold",
+             color = "black")
+
 final_plot
-ggsave("figures/Figure2.jpg", width=1093/90, height=704/90, dpi=900)
+
+ggsave("figures/Figure2.jpg",
+       width=1093/90,
+       height=704/90,
+       dpi=900)

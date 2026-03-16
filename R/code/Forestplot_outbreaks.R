@@ -22,7 +22,7 @@ library(forestploter)
 library(here)
 
 
-meta_test <- read_csv("data/meta_testless.csv") 
+meta_test <- read_csv("data/meta_testless.csv")
 glimpse(meta_test)
 
 meta_test$Category <- ifelse(is.na(meta_test$TE), 
